@@ -7,11 +7,19 @@
 <input type="password" v-model="password">
 
 <label>Role:</label>
-<select v-model="role">
+<select v-model="role" required>
   <option value="Mentor">Mentor</option>
   <option value="Mentee">Mentee</option>
-
 </select>
+
+
+
+<label>Skills: Press Alt  , </label>
+<input type="text" v-model="tempSkill" @keyup="addSkill">
+<div class="pill" v-for="skill in skills" :key="skill">
+{{skill}}
+</div>
+
 
 <div class="terms">
  <input type="checkbox" v-model="terms" required>
@@ -43,7 +51,16 @@ export default {
       password:"",
       role:"",
       term:false,
-      names:[]
+      names:[],
+      skills:[]
+    }
+  },
+  methods:{
+    addSkill(e){
+      if(e.key === "," && this.tempSkill){
+        this.skills.push(this.tempSkill);
+        this.tempSkilll="";
+      }
     }
   }
 
@@ -86,5 +103,16 @@ input[type="checkbox"] {
     top: 2px;
 }
 
+.pill {
+  display: inline-block;
+  margin: 20px 10px 0 0;
+  padding: 6px 12px;
+  background: #eee;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #777;
+  cursor: pointer;
+}
 
 </style>
